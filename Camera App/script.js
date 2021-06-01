@@ -12,6 +12,7 @@ let zoomIn= document.querySelector("#zoom-in");
 let zoomOut = document.querySelector("#zoom-out");
 let frame=document.querySelector(".frame");
 
+
 frame.style["max-width"]=videoPlayer.offsetWidth+"px";
 frame.style["max-height"]=videoPlayer.offsetHeight+"px";
 let zoom=1.0;
