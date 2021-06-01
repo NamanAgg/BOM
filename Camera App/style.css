@@ -7,6 +7,16 @@ body {
     box-sizing: border-box;
 }
 
+.frame{
+    overflow: hidden;
+    height: 100vh;
+}
+
+video{
+    height:100vh;
+    transform: scale(1.0);
+}
+
 .video-container {
     /* position: fixed; */
     height: 100vh;
@@ -18,13 +28,25 @@ body {
 #record-video {
     position: fixed;
     right: 6rem;
-    top: 36vh;
+    top: 35vh;
 }
 
 #click-picture {
     position: fixed;
     right: 6rem;
-    top: 50vh;
+    top: 40vh;
+}
+
+#zoom-in{
+    position: fixed;
+    right: 6rem;
+    top: 60vh;
+}
+
+#zoom-out{
+    position: fixed;
+    right: 6rem;
+    top: 65vh;
 }
 
 .filter-container {

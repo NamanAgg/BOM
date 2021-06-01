@@ -7,16 +7,21 @@ let constraints = {
 
 let videoPlayer = document.querySelector("video");
 let vidRecordBtn = document.querySelector("#record-video");
-
 let captureBtn = document.querySelector("#click-picture");
+let zoomIn= document.querySelector("#zoom-in");
+let zoomOut = document.querySelector("#zoom-out");
+let frame=document.querySelector(".frame");
 
+frame.style["max-width"]=videoPlayer.offsetWidth+"px";
+frame.style["max-height"]=videoPlayer.offsetHeight+"px";
+let zoom=1.0;
 let recordState = false;
 let chunks = [];
 let mediaRecorder;
 
 captureBtn.addEventListener("click", function () {
     capture();
-})
+});
 
 vidRecordBtn.addEventListener("click", function () {
     if (!recordState) {
@@ -27,6 +32,20 @@ vidRecordBtn.addEventListener("click", function () {
         mediaRecorder.stop();
         recordState = false;
         vidRecordBtn.innerText = "Record";
+    }
+});
+
+zoomIn.addEventListener("click",function() {
+    if (zoom <2.0) {
+        zoom += 0.1;
+        videoPlayer.style.transform = `scale(${zoom})`;
+    }
+});
+
+zoomOut.addEventListener("click", function () {
+    if(zoom!=1.0){
+        zoom-=0.1;
+        videoPlayer.style.transform= `scale(${zoom})`;
     }
 });
 
