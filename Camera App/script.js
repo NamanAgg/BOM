@@ -36,7 +36,7 @@ vidRecordBtn.addEventListener("click", function () {
 });
 
 zoomIn.addEventListener("click",function() {
-    if (zoom <2.0) {
+    if (zoom <2.5) {
         zoom += 0.1;
         videoPlayer.style.transform = `scale(${zoom})`;
     }
@@ -72,15 +72,17 @@ function capture() {
     let canvas = document.createElement("canvas");
     canvas.width = videoPlayer.videoWidth;
     canvas.height = videoPlayer.videoHeight;
-    console.log(videoPlayer.videoWidth, videoPlayer.videoHeight);
     let ctx = canvas.getContext("2d");
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.scale(zoom, zoom);
+    ctx.translate(-(canvas.width / 2), -(canvas.height / 2));
     ctx.drawImage(videoPlayer, 0, 0);
     if (filter != "") {
         ctx.fillStyle = filter;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
     let link = document.createElement("a");
-    link.download = "imgi.png";
+    link.download = "img.png";
     link.href = canvas.toDataURL();
     console.log(canvas.toDataURL());
     link.click();
@@ -109,3 +111,7 @@ function addFilterToScreen(filter) {
     filterScreen.style.backgroundColor = filter;
     document.querySelector(".filter-screen-parent").append(filterScreen);
 }
+
+navigator.mediaDevices.enumerateDevices().then(function (devices) {
+    console.log(devices);
+})
