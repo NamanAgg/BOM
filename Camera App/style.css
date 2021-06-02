@@ -29,18 +29,20 @@ video{
     position: fixed;
     right: 6rem;
     top: 35vh;
+    cursor: pointer;
 }
 
 #click-picture {
     position: fixed;
     right: 6rem;
-    top: 40vh;
+    top: 45vh;
+    cursor: pointer;
 }
 
 #zoom-in{
     position: fixed;
     right: 6rem;
-    top: 60vh;
+    top: 58vh;
 }
 
 #zoom-out{
@@ -71,4 +73,53 @@ video{
     width: 100vw;
     position: fixed;
     top: 0
+}
+
+.modal {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    color: black;
+    background-color: white;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.show-gallery {
+    position: fixed;
+    height: 60px;
+    width: 60px;
+    bottom: 10vh;
+    right: 6vw;
+    background-color: white;
+}
+
+.timer {
+    position: fixed;
+    top: 4vh;
+    color: red;
+    left: 49vw;
+    font-size: 20px;
+} 
+
+
+.gallery {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    height: calc(100vh - 50px);
+}
+
+.image img, .video video {
+    height: 31vh;
+    width: 21vw;
+    margin-top: 10px;
+    border: 2px solid black;
+}
+
+.title {
+    margin-bottom: 10px;
 }

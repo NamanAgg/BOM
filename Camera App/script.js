@@ -20,20 +20,47 @@ let recordState = false;
 let chunks = [];
 let mediaRecorder;
 
-captureBtn.addEventListener("click", function () {
-    capture();
-});
-
+let timerInterval;
+let second = 0;
+let minute = 0;
 vidRecordBtn.addEventListener("click", function () {
     if (!recordState) {
         mediaRecorder.start();
         recordState = true;
-        vidRecordBtn.innerText = "Recording...";
+        timerInterval = setInterval(() => {
+            second++;
+            if (second == 60) {
+                minute++;
+                second = 0;
+            }
+            if (minute < 10) {
+                document.querySelector(".minute").innerText = "0" + minute;
+            } else {
+                document.querySelector(".minute").innerText = minute;
+            }
+
+            if (second < 10) {
+                document.querySelector(".second").innerText = "0" + second;
+            } else {
+                document.querySelector(".second").innerText = second;
+            }
+
+        }, 1000);
+        vidRecordBtn.innerHTML = `<img src="https://img.icons8.com/flat-round/60/000000/stop.png"/>`;
     } else {
         mediaRecorder.stop();
         recordState = false;
-        vidRecordBtn.innerText = "Record";
+        clearInterval(timerInterval);
+        second = 0;
+        minute = 0;
+        document.querySelector(".minute").innerText = "00";
+        document.querySelector(".second").innerText = "00";
+        vidRecordBtn.innerHTML = `<img src="https://img.icons8.com/flat-round/60/000000/record.png"/>`;
     }
+});
+
+captureBtn.addEventListener("click", function () {
+    capture();
 });
 
 zoomIn.addEventListener("click",function() {
@@ -61,11 +88,13 @@ navigator.mediaDevices.getUserMedia(constraints).then(function (mediaStream) {
     mediaRecorder.onstop = function () {
         let blob = new Blob(chunks, { type: "video/mp4" });
         chunks = [];
-        let blobUrl = URL.createObjectURL(blob);
-        let a = document.createElement("a");
-        a.href = blobUrl;
-        a.download = "temp.mp4";
-        a.click();
+        //let blobUrl = URL.createObjectURL(blob);
+        // let a = document.createElement("a");
+        // a.href = blobUrl;
+        // a.download = "temp.mp4";
+        //a.click();
+        
+        addFile("video",blob);
     }
 })
 
@@ -82,11 +111,13 @@ function capture() {
         ctx.fillStyle = filter;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
-    let link = document.createElement("a");
-    link.download = "img.png";
-    link.href = canvas.toDataURL();
-    console.log(canvas.toDataURL());
-    link.click();
+    // let link = document.createElement("a");
+    // link.download = "img.png";
+    // link.href = canvas.toDataURL();
+    //console.log(canvas.toDataURL());
+    //link.click();
+    addFile("image",canvas.toDataURL());
+
 }
 
 let filter = "";
@@ -113,6 +144,26 @@ function addFilterToScreen(filter) {
     document.querySelector(".filter-screen-parent").append(filterScreen);
 }
 
-navigator.mediaDevices.enumerateDevices().then(function (devices) {
-    console.log(devices);
-})
+// navigator.mediaDevices.enumerateDevices().then(function (devices) {
+//     console.log(devices);
+// })
+
+
+let showGallery = document.querySelector(".show-gallery");
+
+showGallery.addEventListener("click", function (e) {
+    let modal = document.createElement("div");
+    modal.classList.add("modal");
+    modal.innerHTML = `<div class="title">
+                        <span style="margin-top: 10px; display: inline-block;">Gallery</span>
+                        <span class="close-modal" style="float: right; margin-top: 10px; margin-right: 20px; cursor: pointer;">X</span>
+                    </div>
+                    <div class="gallery">
+                    </div>`;
+    document.querySelector("body").append(modal);
+    let closeModal = document.querySelector(".close-modal");
+    closeModal.addEventListener("click", function (e) {
+        modal.remove();
+    });
+    getData();
+});
