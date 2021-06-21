@@ -56,10 +56,10 @@ function getData() {
                 let url = cursor.value.data;
                 let fileName = cursor.value.nId + ".png";
                 let nId = cursor.value.nId;
-                document.querySelector(`.download${cursor.value.nId}`).addEventListener("click", function () {
-                    download(url, fileName);
+                document.querySelector(`.download${cursor.value.nId}`).addEventListener("click", function(){
+                    download(url,fileName);
                 });
-                document.querySelector(`.delete${cursor.value.nId}`).addEventListener("click", function () {
+                document.querySelector(`.delete${cursor.value.nId}`).addEventListener("click", function(){
                     deleteFromGallery(nId);
                 });
             } else {
@@ -74,10 +74,10 @@ function getData() {
                 gallery.append(video);
                 let fileName = cursor.value.nId + ".mp4";
                 let nId = cursor.value.nId;
-                document.querySelector(`.download${cursor.value.nId}`).addEventListener("click", function () {
-                    download(videoUrl, fileName);
+                document.querySelector(`.download${cursor.value.nId}`).addEventListener("click", function(){
+                    download(videoUrl,fileName);
                 });
-                document.querySelector(`.delete${cursor.value.nId}`).addEventListener("click", function () {
+                document.querySelector(`.delete${cursor.value.nId}`).addEventListener("click", function(){
                     deleteFromGallery(nId);
                 });
             }
@@ -89,7 +89,7 @@ function getData() {
     }
 }
 
-function download(url, name) {
+function download(url,name) {
     let a = document.createElement("a");
     a.href = url;
     a.download = name;
@@ -97,7 +97,7 @@ function download(url, name) {
 }
 
 function deleteFromGallery(nId) {
-    let tx = db.transaction("gallery", "readwrite");
+    let tx = db.transaction("gallery","readwrite");
     let store = tx.objectStore("gallery");
     store.delete(Number(nId));
     getData();
