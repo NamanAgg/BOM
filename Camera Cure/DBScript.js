@@ -1,4 +1,4 @@
-    let request = indexedDB.open("camera", 1);
+    let request = window.indexedDB.open("camera", 1);
     let db;
     request.onsuccess=function(e){
         db = request.result;
